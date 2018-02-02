@@ -1,0 +1,286 @@
+
+    <div ng-controller="booksCtrl">  
+        <h1>Book Store</h1>
+
+        
+        <form class="form-horizontal">
+            <div>   
+                <label>Book ID:</label>
+                <input type="number" ng-model="books.id"/>
+            
+                <label>Book Name:</label>
+                <input type="text" ng-model="books.name"/>
+            
+                <label>Book Author:</label>
+                <input type="text" ng-model="books.author"/>
+            
+                <label>Book Description:</label>
+                <input type="text" ng-model="books.desc"/><br/>
+                
+                <label>Book Page No:</label>
+                <input type="number" ng-model="books.pageno"/>
+            
+                <label>Book Category:</label>
+                <input type="text" ng-model="books.cat"/>
+            
+                <label>Book Price:</label>
+                <input type="number" ng-model="books.price"/>
+            
+                <label>Book Release:</label>
+                <input type="text" ng-model="books.release"/>
+
+                <label>Book Language:</label>
+                <input type="text" ng-model="books.lang"/>
+            </div> 
+            <br/>
+            <div>
+                <h5 class="headtext">Addition of Book</h5>
+                <button type="button" class="btn btn-primary btnCss" ng-click="addBook()">Add</button><br/><br/>
+                <h5 class="headtext">Find Book</h5>
+                <button type="button" class="btn btn-primary btnCss" ng-click="showAllBook()">Show</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="showById(books.id)">Show By Id</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="showByName(books.name)">Show By Name</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="showByPage()">Show By Page 100<</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="showByRelease()">Show By Release</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="showBWRelease()">ShowBWRelease</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="showByAuthNName(books.author,books.name)">Show By Author & Name</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="showBookBWPages()">Show By Page 25< page >90</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="showBookNEPages()">Show By Page 25< page >90 N!=80</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="showPageZero()">Show By Page == 00<</button><br/><br/>
+                <h5 class="headtext">CRUD By Search Book</h5>
+                <button type="button" class="btn btn-primary btnCss" ng-click="searchExists()">Search Exists</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="updateBookBysearch(books.id)">updateBysearch</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="deleteBookBysearch(books.id)">deleteBysearch</button><br/><br/>
+                <h5 class="headtext">Updation of Book</h5>
+                <button type="button" class="btn btn-primary btnCss" ng-click="updateById(books.id)">UpdateById</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="updateByName(books.name)">UpdateByName</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="updateBookByNameNAuthor(books.name,books.author)">UpdateByNameNAuthor</button><br/><br/>
+                <h5 class="headtext">Deletion of Book</h5>
+                <button type="button" class="btn btn-primary btnCss" ng-click="deleteById(books.id)">Delete By Id</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="deleteByName(books.name)">Delete By Name</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="deleteByAuthorNDesc(books.author,books.desc)">DeleteByAuthorANDDesc</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="deleteByNameNCat(books.name,books.cat)">DeleteByNameANDCat</button><br/><br/>
+                <h5 class="headtext">Sorting of Book</h5>
+                <button type="button" class="btn btn-primary btnCss" ng-click="sortName()">SortName</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="sortPrice()">sortPrice</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="sortAuthor()">sortAuthor</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="sortPage()">sortPage</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="sortCat()">sortCategory</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="sortRelease()">sortRelease</button><br/><br/>
+                <h5 class="headtext">Show Book By Name Only</h5>
+                <button type="button" class="btn btn-primary btnCss" ng-click="shownameonly()">show only name</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="bookHighPrice()">Book Highest Price</button>
+                <button type="button" class="btn btn-primary btnCss" ng-click="bookHPLowPage()">Book Highest Price Low Page</button>
+            </div>
+        </form>
+        
+        <br/>
+
+        <br/>
+        <table class="table table-striped table-bordered table-hover table-checkable datatable" ng-show="tableee">  
+            <thead class="grid-top-panel">  
+                <tr>  
+                    <th ng-hide="bookdata">Book ID</th>
+                    <th>Book Name</th>
+                    <th ng-hide="bookdata">Book Author</th>
+                    <th ng-hide="bookdata">Book Description</th>
+                    <th ng-hide="bookdata">Book Page No</th>
+                    <th ng-hide="bookdata">Book Category</th>
+                    <th ng-hide="bookdata">Book Price</th>
+                    <th ng-hide="bookdata">Book Release</th> 
+                    <th ng-hide="bookdata">Book Language</th> 
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr ng-repeat="book in bookss">
+                    <td ng-hide="bookdata">{{book.bookId}}</td>
+                    <td ng-click="onNameClick(book)">{{book.bookName}}</td>
+                    <td ng-hide="bookdata">{{book.bookAuthor}}</td>
+                    <td ng-hide="bookdata">{{book.bookDescription}}</td>
+                    <td ng-hide="bookdata">{{book.bookPageNo}}</td>
+                    <td ng-hide="bookdata">{{book.bookCategory}}</td>
+                    <td ng-hide="bookdata">{{book.bookPrice}}</td>
+                    <td ng-hide="bookdata">{{book.bookReleasedYear}}</td>
+                    <td ng-hide="bookdata">{{book.bookLanguage}}</td>
+                </tr>  
+            </tbody>  
+        </table>  
+
+        <table class="table table-striped table-bordered table-hover table-checkable datatable" ng-show="table1">  
+            <thead class="grid-top-panel">  
+                <tr>  
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Book Author</th>
+                    <th>Book Description</th>
+                    <th>Book Page No</th>
+                    <th>Book Category</th>
+                    <th>Book Price</th>
+                    <th>Book Release</th> 
+                    <th>Book Language</th> 
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr ng-repeat="books in bookstore">
+                    <td>{{books.bookId}}</td>
+                    <td>{{books.bookName}}</td>
+                    <td>{{books.bookAuthor}}</td>
+                    <td>{{books.bookDescription}}</td>
+                    <td>{{books.bookPageNo}}</td>
+                    <td>{{books.bookCategory}}</td>
+                    <td>{{books.bookPrice}}</td>
+                    <td>{{books.bookReleasedYear}}</td>
+                    <td>{{books.bookLanguage}}</td>
+                </tr>  
+            </tbody>  
+        </table>
+
+<!-- ==================================================Using Bootstrape Table============================================================== -->
+
+        <!-- <form class="form-inline">
+            <div class="form-group">
+                <label>Search</label>&nbsp
+                <input type="text" ng-model="search" class="form-control" placeholder="Search" style="border-color:cadetblue">
+            </div>
+        </form>
+        <br/>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th ng-click="sort('bookId')">Book ID
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='bookId'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-click="sort('bookName')">Book Name
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='bookName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-click="sort('bookAuthor')">Book Author
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='bookAuthor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-click="sort('bookDescription')">Book Description
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='bookDescription'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-click="sort('bookPageNo')">Book Page No
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='bookPageNo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-click="sort('bookCategory')">Book Category
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='bookCategory'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-click="sort('bookPrice')">Book Price
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='bookPrice'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-click="sort('bookReleasedYear')">Book Release
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='bookReleasedYear'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th> 
+                    <th ng-click="sort('bookLanguage')">Book Language
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='bookLanguage'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="filter in filterbooks | orderBy:sortKey:reverse | filter:search | itemsPerPage:5">
+                    <td>{{filter.bookId}}</td>
+                    <td>{{filter.bookName}}</td>
+                    <td>{{filter.bookAuthor}}</td>
+                    <td>{{filter.bookDescription}}</td>
+                    <td>{{filter.bookPageNo}}</td>
+                    <td>{{filter.bookCategory}}</td>
+                    <td>{{filter.bookPrice}}</td>
+                    <td>{{filter.bookReleasedYear}}</td>
+                    <td>{{filter.bookLanguage}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls
+            max-size="5"
+            direction-links="true"
+            boundary-links="true" >
+        </dir-pagination-controls> -->
+
+<!-- ==================================================Using ng-table Table============================================================== -->
+
+        <!-- <table ng-table="booksTable" class="table table-striped">
+            <tr ng-repeat="book in data">
+                <td data-title="'Book ID'" sortable="'bookId'" filter="{ 'bookId': 'number' }">
+                    {{book.bookId}}
+                </td>
+                <td data-title="'Book Name'" sortable="'bookName'" filter="{ 'bookName': 'text' }">
+                    {{book.bookName}}
+                </td>
+                <td data-title="'Book Author'" sortable="'bookAuthor'" filter="{ 'bookAuthor': 'text' }">
+                    {{book.bookAuthor}}
+                </td>    
+                <td data-title="'Book Description'" sortable="'bookDescription'" filter="{ 'bookDescription': 'text' }">
+                    {{book.bookDescription}}
+                </td>    
+                <td data-title="'Book Page No'" sortable="'bookPageNo'" filter="{ 'bookPageNo': 'number' }">
+                    {{book.bookPageNo}}
+                </td>    
+                <td data-title="'Book Category'" sortable="'bookCategory'" filter="{ 'bookCategory': 'text' }">
+                    {{book.bookCategory}}
+                </td>    
+                <td data-title="'Book Price'" sortable="'bookPrice'" filter="{ 'bookPrice': 'number' }">
+                    {{book.bookPrice}}
+                </td>
+                <td data-title="'Book Release'" sortable="'bookReleasedYear'" filter="{ 'bookReleasedYear': 'text' }">
+                    {{book.bookReleasedYear}}
+                </td>
+                <td data-title="'Book Language'" sortable="'bookLanguage'" filter="{ 'bookLanguage': 'text' }">
+                    {{book.bookLanguage}}
+                </td>
+            </tr>
+         </table> -->
+
+<!-- ==================================================Using ng-table Table============================================================== -->
+
+       
+        <div class="row">
+            <div class="col-md-12">
+                
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label >Categories</label>
+                                <div isteven-multi-select class="multiselect-container"
+                                        input-model="bookCategories"
+                                        output-model="selectedCategories"
+                                        button-label="bookCategory"
+                                        item-label="bookCategory"
+                                        on-item-click="withCatSelected(selectedCategories)" 
+                                        on-reset="withCatSelectedResest(undefined)"
+                                        tick-property="selected"
+                                        max-labels="1">
+                                </div>
+                            <!-- <input type="text" ng-model="selectedCategories" name="buks" id="buks" style="display:block"> -->
+                        </div>
+                        
+                        <div class="form-group col-md-4">
+                            <td>Min price:</td>
+                            <td><input type="number" id="min" name="min" ng-change="ngChange()" ng-model="minValue"></td>
+                            <br/>
+                            <td>Max price:</td>
+                            <td><input type="number" id="max" name="max" ng-change="ngChange()" ng-model="maxValue"></td>
+                        </div>
+                       
+                        <div class="form-group col-md-4">
+                            <label >Release Year</label>
+                                <div isteven-multi-select class="multiselect-container"
+                                        input-model="bookReleases"
+                                        output-model="selectedReleases"
+                                        button-label="bookReleasedYear"
+                                        item-label="bookReleasedYear"
+                                        on-item-click="withYearSelected(selectedReleases)"
+                                        on-reset="withYearSelected(undefined)"
+                                        tick-property="selected"
+                                        selection-mode="single"
+                                        output-properties="bookReleasedYear">
+                                </div>
+                            <!-- <input type="text" ng-model="selectedReleases" name="buks2" id="buks2" style="display:block"> -->
+                        </div>
+                    </div>
+                    <table id="bookstoreTable" datatable="" dt-options="bookstores.dtOptions" dt-columns="bookstores.dtColumns" dt-instance="bookstores.dtInstance"
+                             class="table table-bordered dt-responsive table-hover" style="width: 100%;"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+  
